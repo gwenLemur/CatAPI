@@ -15,7 +15,7 @@ class CatListActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCatlistBinding
     private lateinit var adapter: CatAdapterActivity
-    private lateinit var cats: MutableList<CatObj>
+    private lateinit var cats: CatObj
 
     companion object{
         val TAG = "yay"
@@ -39,20 +39,36 @@ class CatListActivity : AppCompatActivity() {
             for (i in httpStatusList){
                 catCall.add(catService.getCatData(i))
             }
+        // TODO: make adapter w/ empty list, add each call to adapter, have adapter reload data
+        catCall.forEach{
+           it.enqueue(object: Callback<CatObj>{
+                override fun onResponse(
+                    call: Call<CatObj>,
+                    response: Response<CatObj>
+                ) {
+                    cats = response.body()!!
+                    adapter = CatAdapterActivity(cats)
+                    Log.d(TAG, "onResponse: ${response.body()}")
+                }
 
-        catCall.enqueue(object: Callback<MutableList<CatObj>>{
-            override fun onResponse(
-                call: Call<MutableList<CatObj>>,
-                response: Response<MutableList<CatObj>>
-            ) {
-                cats = response.body()!!
-                adapter = CatAdapterActivity(cats)
-                Log.d(TAG, "onResponse: ${response.body()}")
-            }
-
-            override fun onFailure(call: Call<MutableList<CatObj>>, t: Throwable) {
-                Log.d(TAG, "no: ${t.message}")
-            }
-        } )
+                override fun onFailure(call: Call<CatObj>, t: Throwable) {
+                    Log.d(TAG, "no: ${t.message}")
+                }
+            } )
+        }
+//        catCall.enqueue(object: Callback<MutableList<CatObj>>{
+//            override fun onResponse(
+//                call: Call<MutableList<CatObj>>,
+//                response: Response<MutableList<CatObj>>
+//            ) {
+//                cats = response.body()!!
+//                adapter = CatAdapterActivity(cats)
+//                Log.d(TAG, "onResponse: ${response.body()}")
+//            }
+//
+//            override fun onFailure(call: Call<MutableList<CatObj>>, t: Throwable) {
+//                Log.d(TAG, "no: ${t.message}")
+//            }
+//        } )
     }
 }
