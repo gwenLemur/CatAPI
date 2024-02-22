@@ -37,14 +37,14 @@ class CatAdapterActivity(var catList: MutableList<CatObj>) :
         holder.textViewTitle.text = cats.title
         holder.textViewUrl.text = cats.url
 
-        holder.layout.setOnClickListener {
-
-            //Intent here
-            val catIntent = Intent(context, CatDisplayActivity::class.java)
-            catIntent.putExtra("currCat", cats)
-            context.startActivity(catIntent)
-
-        }
+//        holder.layout.setOnClickListener {
+//
+//            //Intent here
+//            val catIntent = Intent(context, CatDisplayActivity::class.java)
+//            catIntent.putExtra("currCat", cats)
+//            context.startActivity(catIntent)
+//
+//        }
     }
 
     override fun getItemCount() = catList.size
