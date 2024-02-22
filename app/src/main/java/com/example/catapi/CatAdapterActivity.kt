@@ -1,7 +1,7 @@
 package com.example.catapi
 
+import android.content.Intent
 import android.view.LayoutInflater
-import android.view.TextureView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
@@ -34,6 +34,17 @@ class CatAdapterActivity(var catList: MutableList<CatObj>) :
         val cats = catList[position]
         val context = holder.layout.context
         holder.textViewCodes.text = cats.status_code.toString()
+        holder.textViewTitle.text = cats.title
+        holder.textViewUrl.text = cats.url
+
+        holder.layout.setOnClickListener {
+
+            //Intent here
+            val catIntent = Intent(context, CatDisplayActivity::class.java)
+            catIntent.putExtra("currCat", cats)
+            context.startActivity(catIntent)
+
+        }
     }
 
     override fun getItemCount() = catList.size
