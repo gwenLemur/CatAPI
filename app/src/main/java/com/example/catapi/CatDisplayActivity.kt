@@ -19,7 +19,7 @@ class CatDisplayActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         var parcel = intent.getParcelableExtra<CatObj>(EXTRA_CAT)
-        var image = parcel?.url
+        var image = parcel?.image?.jpg
         var title = parcel?.title
         var code = parcel?.status_code
 
