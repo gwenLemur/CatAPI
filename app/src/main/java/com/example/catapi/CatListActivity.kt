@@ -51,6 +51,7 @@ class CatListActivity : AppCompatActivity() {
                     cats = response.body()!!
                     Log.d(TAG, "onResponse: ${response.body()}")
                     catList.add(cats)
+                    catList.sortBy{it.status_code}
                     adapter = CatAdapterActivity(catList)
                     binding.RecyclerView.adapter = adapter
                     binding.RecyclerView.layoutManager = LinearLayoutManager(this@CatListActivity)
