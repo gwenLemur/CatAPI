@@ -18,8 +18,8 @@ class CatAdapterActivity(var catList: MutableList<CatObj>) :
             val layout: ConstraintLayout
 
             init{
-                textViewCodes = view.findViewById(R.id.code)
-                textViewTitle = view.findViewById(R.id.title)
+                textViewCodes = view.findViewById(R.id.codes)
+                textViewTitle = view.findViewById(R.id.titles)
                 textViewUrl = view.findViewById(R.id.url)
                 layout = view.findViewById(R.id.layout)
             }
