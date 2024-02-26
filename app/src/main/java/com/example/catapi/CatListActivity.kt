@@ -16,6 +16,7 @@ class CatListActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCatlistBinding
     private lateinit var adapter: CatAdapterActivity
     private lateinit var cats: CatObj
+    private lateinit var catList: MutableList<CatObj>
 
     companion object{
         val TAG = "yay"
@@ -47,7 +48,7 @@ class CatListActivity : AppCompatActivity() {
                     response: Response<CatObj>
                 ) {
                     cats = response.body()!!
-                    adapter = CatAdapterActivity(cats)
+                    catList.add(cats)
                     Log.d(TAG, "onResponse: ${response.body()}")
                 }
 
@@ -56,6 +57,8 @@ class CatListActivity : AppCompatActivity() {
                 }
             } )
         }
+        adapter = CatAdapterActivity(catList)
+
 //        catCall.enqueue(object: Callback<MutableList<CatObj>>{
 //            override fun onResponse(
 //                call: Call<MutableList<CatObj>>,
