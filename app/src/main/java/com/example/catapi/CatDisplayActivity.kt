@@ -25,7 +25,7 @@ class CatDisplayActivity : AppCompatActivity() {
 
         val context = binding.layout.context
         val currCat = intent.getParcelableExtra<CatObj>("currCat" )
-        binding.title.text = title
+        binding.title.text = "Cats may embody the essense of a status like this one which is a "+ title
         binding.code.text = code.toString()
         Picasso.get().load(image).into(binding.image)
 
