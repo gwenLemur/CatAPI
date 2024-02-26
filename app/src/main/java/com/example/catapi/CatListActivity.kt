@@ -49,6 +49,7 @@ class CatListActivity : AppCompatActivity() {
                 ) {
                     cats = response.body()!!
                     catList.add(cats)
+                    adapter = CatAdapterActivity(catList)
                     Log.d(TAG, "onResponse: ${response.body()}")
                 }
 
@@ -57,7 +58,7 @@ class CatListActivity : AppCompatActivity() {
                 }
             } )
         }
-        adapter = CatAdapterActivity(catList)
+
 
 //        catCall.enqueue(object: Callback<MutableList<CatObj>>{
 //            override fun onResponse(
