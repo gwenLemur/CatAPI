@@ -3,6 +3,7 @@ package com.example.catapi
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.catapi.api.CatService
 import com.example.catapi.api.RetrofitHelper
 import com.example.catapi.databinding.ActivityCatlistBinding
@@ -16,7 +17,7 @@ class CatListActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCatlistBinding
     private lateinit var adapter: CatAdapterActivity
     private lateinit var cats: CatObj
-    private lateinit var catList: MutableList<CatObj>
+    private var catList = mutableListOf<CatObj>()
 
     companion object{
         val TAG = "yay"
@@ -48,9 +49,11 @@ class CatListActivity : AppCompatActivity() {
                     response: Response<CatObj>
                 ) {
                     cats = response.body()!!
+                    Log.d(TAG, "onResponse: ${response.body()}")
                     catList.add(cats)
                     adapter = CatAdapterActivity(catList)
-                    Log.d(TAG, "onResponse: ${response.body()}")
+                    binding.RecyclerView.adapter = adapter
+                    binding.RecyclerView.layoutManager = LinearLayoutManager(this@CatListActivity)
                 }
 
                 override fun onFailure(call: Call<CatObj>, t: Throwable) {
@@ -58,7 +61,6 @@ class CatListActivity : AppCompatActivity() {
                 }
             } )
         }
-
 
 //        catCall.enqueue(object: Callback<MutableList<CatObj>>{
 //            override fun onResponse(
